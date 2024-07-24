@@ -219,7 +219,7 @@ someFoo;			// function foo(){..}
 myObject.someFoo;	// function foo(){..}
 ```
 
-`someFoo` 和 `myObject.someFoo` 只不过是同一个函数的两个分离的引用，它们中的任何一个都不意味着这个函数很特别或被其他对象所“拥有”。如果上面的 `foo()` 定义里面拥有一个 `this` 引用，那么 `myObject.someFoo` 的 *隐含绑定* 将会是这个两个引用间 **唯一** 可以观察到的不同。它们中的任何一个都没有称为“方法”的道理。
+`someFoo` 和 `myObject.someFoo` 只不过是同一个函数的两个分离的引用，它们中的任何一个都不意味着这个函数很特别或被其他对象所“拥有”。如果上面的 `foo()` 定义里面拥有一个 `this` 引用，那么 `myObject.someFoo` 的 *隐含绑定* 将会是这两个引用间 **唯一** 可以观察到的不同。它们中的任何一个都没有称为“方法”的道理。
 
 **也许有人会争辩**，函数 *变成了方法*，不是在定义期间，而是在调用的执行期间，根据它是如何在调用点被调用的（是否带有一个环境对象引用 —— 细节见第二章）。即便是这种解读也有些牵强。
 
@@ -504,7 +504,7 @@ myObject.a;				// 2
 
 有时我们希望将属性或对象（有意或无意地）设置为不可改变的。ES5 用几种不同的微妙方式，加入了对此功能的支持。
 
-一个重要的注意点是：**所有** 这些方法创建的都是浅不可变性。也就是，它们仅影响对象和它的直属属性的性质。如果对象拥有对其他对象（数组、对象、函数等）的引用，那个对象的 *内容* 不会受影响，任然保持可变。
+一个重要的注意点是：**所有** 这些方法创建的都是浅不可变性。也就是，它们仅影响对象和它的直属属性的性质。如果对象拥有对其他对象（数组、对象、函数等）的引用，那个对象的 *内容* 不会受影响，仍然保持可变。
 
 ```js
 myImmutableObject.foo; // [1,2,3]
@@ -545,7 +545,7 @@ myObject.b = 3;
 myObject.b; // undefined
 ```
 
-在非 `strict mode` 模式下，`b` 的创建会无声地失败。在 `strict mode` 下，它会抛出 `TypeError`。
+在非 `strict mode` 下，`b` 的创建会无声地失败。在 `strict mode` 下，它会抛出 `TypeError`。
 
 #### 封印（Seal）
 
@@ -717,7 +717,7 @@ myObject.hasOwnProperty( "a" );	// true
 myObject.hasOwnProperty( "b" );	// false
 ```
 
-`in` 操作符会检查属性是否存在于对象 *中*，或者是否存在于 `[[Prototype]]` 链对象遍历的更高层中（详见第五章）。相比之下，`hasOwnProperty(..)` *仅仅* 检查 `myObject` 是否拥有属性，但 *不会* 查询 `[[Prototype]]` 链。我们会在第五章详细讲解 `[[Prototype]]` 时，回来讨论这个两个操作重要的不同。
+`in` 操作符会检查属性是否存在于对象 *中*，或者是否存在于 `[[Prototype]]` 链对象遍历的更高层中（详见第五章）。相比之下，`hasOwnProperty(..)` *仅仅* 检查 `myObject` 是否拥有属性，但 *不会* 查询 `[[Prototype]]` 链。我们会在第五章详细讲解 `[[Prototype]]` 时，回来讨论这两个操作重要的不同。
 
 通过委托到 `Object.prototype`，所有的普通对象都可以访问 `hasOwnProperty(..)`（详见第五章）。但是创建一个不链接到 `Object.prototype` 的对象也是可能的（通过 `Object.create(null)` —— 详见第五章）。这种情况下，像 `myObject.hasOwnProperty(..)` 这样的方法调用将会失败。
 
@@ -788,7 +788,7 @@ Object.keys( myObject ); // ["a"]
 Object.getOwnPropertyNames( myObject ); // ["a", "b"]
 ```
 
-`propertyIsEnumerable(..)` 测试一个给定的属性名是否直 *接存* 在于对象上，并且是 `enumerable:true`。
+`propertyIsEnumerable(..)` 测试一个给定的属性名是否 *直接存在* 于对象上，并且是 `enumerable:true`。
 
 `Object.keys(..)` 返回一个所有可枚举属性的数组，而 `Object.getOwnPropertyNames(..)` 返回一个 *所有* 属性的数组，不论能不能枚举。
 
